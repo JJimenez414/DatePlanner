@@ -1,13 +1,19 @@
-import React from 'react'
+import React from 'react';
+import {Link } from 'react-router-dom';
 
-function landingpage() {
+function Landingpage() {
+
   return (
     <> 
         <div className='btn-container center'>
 
-            <button className='btn'> Create Room </button>
+            <Link to={'/createroom'}> 
+              <button className='btn'> Create Room </button>
+            </Link>
 
-            <button className='btn'> Join a Room </button>
+            <Link to={'/joinroom'}> 
+              <button className='btn'> Join Room </button>
+            </Link>
 
         </div>
         
@@ -16,4 +22,4 @@ function landingpage() {
   )
 }
 
-export default landingpage
+export default Landingpage

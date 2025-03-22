@@ -1,38 +1,18 @@
 import './App.css'
-import React, { useEffect } from 'react';
-import Landingpage from './components/landingpage.jsx';
-import { socket } from './socket';
+import { Routes, Route } from 'react-router-dom';
+import Landingpage from './components/Landingpage.jsx';
+import Createroom from './components/Createroom.jsx';
+import Joinroom from './components/Joinroom.jsx';
 
 function App() {
-     
-  // useEffect(()=> {
-
-  //     socket.on("connect", () => {
-  //       console.log(`Connecting to server as ${socket.id}`);
-  //     });
-
-  //     socket.on('receive-message', (value) => {
-  //       console.log(`receive message ${value}`)
-  //     })
-
-  //     return () => {
-  //       socket.off('receive-message');
-  //     }
-
-  //   }, []);
-
-  // function test(e) {
-  //   let data = e.target.innerHTML;
-
-  //   console.log("emitting message to server");
-  //   socket.emit("send-message", data);
-  // }
-
   return (
-    <>
-      <Landingpage/>
+    <Routes>
 
-    </>
+      <Route path="/" element={<Landingpage/>}/>
+      <Route path="/createroom" element={<Createroom/>}/>  
+      <Route path="/joinroom" element={<Joinroom/>}/>  
+
+    </Routes>
   )
 
 }
