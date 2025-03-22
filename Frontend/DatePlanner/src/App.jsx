@@ -1,20 +1,37 @@
 import './App.css'
-import APIRequest from './APIRequest';
+import React, { useEffect } from 'react';
+import Landingpage from './components/landingpage.jsx';
+import { socket } from './socket';
 
 function App() {
+     
+  // useEffect(()=> {
 
-  function test(e) {
-    e.preventDefault();
-    
-    APIRequest.sendClick(e.target.innerText);
-  
-  }
+  //     socket.on("connect", () => {
+  //       console.log(`Connecting to server as ${socket.id}`);
+  //     });
+
+  //     socket.on('receive-message', (value) => {
+  //       console.log(`receive message ${value}`)
+  //     })
+
+  //     return () => {
+  //       socket.off('receive-message');
+  //     }
+
+  //   }, []);
+
+  // function test(e) {
+  //   let data = e.target.innerHTML;
+
+  //   console.log("emitting message to server");
+  //   socket.emit("send-message", data);
+  // }
 
   return (
     <>
-      <button onClick={test}> Person1 </button>
+      <Landingpage/>
 
-      <button onClick={test}> Person2 </button>
     </>
   )
 
