@@ -1,11 +1,9 @@
 const express = require('express');
-const cors = require('cors');
 const { createServer } = require('http');
-const { Server } = require('socket.io');
+const { Server } = require('socket.io'); // npm socket.io
 
 const PORT = 3000;
 const app = express();
-const bodyParser = require('body-parser');
 const httpServer = createServer(app) // createServer expects a "requestlister" which express is
 const io = new Server(httpServer, { // creates a io instance
     cors: {
@@ -13,16 +11,19 @@ const io = new Server(httpServer, { // creates a io instance
     }
 });
 
-io.on("connection", (socket) => {
+io.on("connection", (socket) => { // start connection
 
-    socket.on("send-message", (arg) => {
-        console.log(arg);
-        io.emit("receive-message", `hi ${arg}`);
+    socket.on("join-room", (roomID) => { // listen for any sockets joining a room
+        socket.join(roomID)
+        console.log(`${socket.id} joined ${roomID} room.`)
+    })
+
+    socket.on("send-message", (to)=> { // waiting for any messages
+        console.log("sending message");
+        io.to(to).emit('receive-message', `hi this is ${socket.id}`); // emit a message to all the innstances that are in the room
     });
 
 });
-
-app.use(bodyParser.json())
 
 httpServer.listen(PORT, () => {
     console.log(`Listening to port: ${PORT}`)
