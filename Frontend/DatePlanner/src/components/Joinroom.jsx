@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { socket } from '../socket.js';
+import { Link } from 'react-router-dom';
 
 
 function Joinroom() {
@@ -22,7 +23,10 @@ function Joinroom() {
       <div className='join-room-container center'> 
         
         <input type="text" placeholder="ID Room" onChange={handleInputChange} value={roomID} />
-        <button className="btn" onClick={() => joinRoom()}> Join room </button>
+        
+        <Link to={"/room"}>
+          <button className="btn" onClick={() => joinRoom()}> Join room </button>
+        </Link>
 
       </div>
 

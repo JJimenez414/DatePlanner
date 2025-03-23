@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import {Link} from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid';
 import { socket } from '../socket.js';
 
@@ -21,6 +22,10 @@ function Createroom() {
             console.log(args);
         })
 
+        return () => {
+            socket.off('receive-message');
+        };
+
     }, [])
 
     return (
@@ -29,7 +34,10 @@ function Createroom() {
         <div className='create-room-container center'> 
                 <p> {roomID} </p>
                 <button className="btn" onClick={() => newRoom()}> New Room </button> 
-                <button className="btn" onClick={() => joinRoom()}> Connnect </button> 
+
+                <Link to={"/room"}> 
+                    <button className="btn" onClick={() => joinRoom()}> Connnect </button> 
+                </Link>
         </div>
     </>
     

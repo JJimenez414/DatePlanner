@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import Landingpage from './components/Landingpage.jsx';
 import Createroom from './components/Createroom.jsx';
 import Joinroom from './components/Joinroom.jsx';
+import Room from './components/Room.jsx';
 
 function App() {
 
@@ -12,6 +13,10 @@ function App() {
     socket.on("connect", () => {
         console.log("Connecting to server")
     })
+
+    return () => {
+      socket.off("connect");
+    }
   }, [])
 
   return (
@@ -20,6 +25,7 @@ function App() {
       <Route path="/" element={<Landingpage/>}/>
       <Route path="/createroom" element={<Createroom/>}/>  
       <Route path="/joinroom" element={<Joinroom/>}/>  
+      <Route path="/room" element={<Room/>}/>
 
     </Routes>
   )

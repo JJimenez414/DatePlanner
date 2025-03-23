@@ -15,13 +15,8 @@ io.on("connection", (socket) => { // start connection
 
     socket.on("join-room", (roomID) => { // listen for any sockets joining a room
         socket.join(roomID)
-        console.log(`${socket.id} joined ${roomID} room.`)
+        io.to(roomID).emit('join-message', `${socket.id} has joined the room.`);
     })
-
-    socket.on("send-message", (to)=> { // waiting for any messages
-        console.log("sending message");
-        io.to(to).emit('receive-message', `hi this is ${socket.id}`); // emit a message to all the innstances that are in the room
-    });
 
 });
 
