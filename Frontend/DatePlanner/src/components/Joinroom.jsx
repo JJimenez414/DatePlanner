@@ -1,37 +1,47 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { socket } from '../socket.js';
 import { Link } from 'react-router-dom';
-
+import { useRoom } from '../context/RoomContext';
 
 function Joinroom() {
+    const [roomID, setRoomID] = useState("");
+    const { setRoomID: setGlobalRoomID } = useRoom();
 
-  const [roomID, handleRoomID] = useState("");
-
-  function joinRoom() {
-      console.log(`joining ${roomID}`);
-      socket.emit("join-room", roomID);
-      socket.emit("send-message", roomID);
-  }
-
-  function handleInputChange(e) {
-    handleRoomID(e.target.value);
-  }
-
-  return (
-    <>
-
-      <div className='join-room-container center'> 
+    function joinRoom() {
+        if (!roomID.trim()) return;
         
-        <input type="text" placeholder="ID Room" onChange={handleInputChange} value={roomID} />
-        
-        <Link to={"/room"}>
-          <button className="btn" onClick={() => joinRoom()}> Join room </button>
-        </Link>
+        console.log(`joining ${roomID}`);
+        setGlobalRoomID(roomID);
+        socket.emit("join-room", roomID);
+    }
 
-      </div>
+    function handleInputChange(e) {
+        setRoomID(e.target.value);
+    }
 
-    </>
-  )
+    return (
+        <>
+            <div className='join-room-container center'> 
+                <input 
+                    type="text" 
+                    placeholder="Enter Room ID" 
+                    onChange={handleInputChange} 
+                    value={roomID}
+                    className="room-input"
+                />
+                
+                <Link to={"/activitylist"}>
+                    <button 
+                        className="btn" 
+                        onClick={joinRoom}
+                        disabled={!roomID.trim()}
+                    > 
+                        Join Room 
+                    </button>
+                </Link>
+            </div>
+        </>
+    )
 }
 
 export default Joinroom
