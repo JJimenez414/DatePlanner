@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { socket, getConnectionStatus } from '../socket'
 import { useNavigate } from 'react-router-dom';
 import { useRoom } from '../context/RoomContext';
+import ActivityCard from './ActivityCard';
 
 function Room() {
     const [activities, setActivities] = useState([]);
@@ -39,11 +40,11 @@ function Room() {
     return(
       <>
         <div className='room-container center'>
-          {activities.map((activity, index) => (
-
-                <p key={index}> {activity} </p>
-
-          ))}
+          <div className='room-card-container center'>
+              {activities.map((activity, index) => (
+                      <ActivityCard key={index} activity={activity} />
+              ))}
+          </div>
         </div>
       </>
     )
