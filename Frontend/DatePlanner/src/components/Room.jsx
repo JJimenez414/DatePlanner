@@ -23,10 +23,9 @@ function Room() {
 
         // Receive activities
         socket.on("receive-activities", (data) => {
-            setActivities((prev) => [...prev, data]);
+            setActivities((prev) => [data]);
             console.log(data);
-        }); 
-
+        });
 
         // Cleanup function
         return () => {

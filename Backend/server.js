@@ -56,14 +56,15 @@ io.on("connection", (socket) => {
         if (!activeRooms.has(roomID)) {
             activeRooms.set(roomID, {
                 createdAt: Date.now(),
-                users: new Set()
+                users: new Set(),
+                activities: []
             });
         }
         activeRooms.get(roomID).users.add(socket.id);
     });
 
-    socket.on("submit-activities", (data) => {
-        console.log(data);
+    socket.on("submit-activities", (data, cb) => {
+        console.log(data.activities);
         if (!data.roomID || !data.activities) {
             socket.emit("error", "Invalid input");
             return;
@@ -73,8 +74,14 @@ io.on("connection", (socket) => {
             socket.emit('error', 'You are not in this room');
             return;
         }
-        
-        io.to(data.roomID).emit('receive-activities', data.activities);
+
+        let room = activeRooms.get(data.roomID);
+
+        data.activities.forEach(activity => {
+            room.activities.push(activity);
+        });
+
+        io.to(data.roomID).emit('receive-activities', room.activities);
 
     });
 
