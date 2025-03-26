@@ -69,12 +69,34 @@ html, body {
     width: min-content;
 }
 
-.activity-card {
+.activity-card-container {
+    position: relative;
     height: 60%;
     width: 400px;
-    background-color: red;
-    border-radius: 10px;
 }
+
+.activity-card {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.activity-card:hover {
+    cursor: grabbing;
+    box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+.activity-card:active  {
+    transform: scale(1.05);
+}
+
+
 
 .activity-list-body::-webkit-scrollbar {
     border-radius: 10px;

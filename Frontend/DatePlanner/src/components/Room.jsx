@@ -24,8 +24,7 @@ function Room() {
 
         // Receive activities
         socket.on("receive-activities", (data) => {
-            setActivities((prev) => [data]);
-            console.log(data);
+            setActivities(data);
         });
 
         // Cleanup function
@@ -41,9 +40,11 @@ function Room() {
       <>
         <div className='room-container center'>
           <div className='room-card-container center'>
-              {activities.map((activity, index) => (
-                      <ActivityCard key={index} activity={activity} />
-              ))}
+            <div className="activity-card-container">
+                  {activities.map((activity, index) => (
+                          <ActivityCard key={index} activity={activity} />
+                  ))}
+            </div>
           </div>
         </div>
       </>
