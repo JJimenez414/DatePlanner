@@ -1,4 +1,3 @@
-import Draggable from 'react-draggable';
 import { useRef } from 'react';
 
 function ActivityCard({ activity = "" }) {
