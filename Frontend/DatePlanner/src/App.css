@@ -67,7 +67,6 @@ html, body {
 .room-card-container {
     height: 100%;
     width: 50%;
-    background-color: blue;
 }
 
 .activity-card-container {
@@ -85,13 +84,12 @@ html, body {
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    background-color: red;
+    background-color: white;
 }
 
 .activity-card:hover {
     cursor: grabbing;
     box-shadow: 0 0 32px 0 rgba(0, 0, 0, 0.1);
-    transform: translateY(-10px);
 }
 
 
