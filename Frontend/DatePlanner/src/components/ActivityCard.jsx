@@ -1,7 +1,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useRef, useState} from "react";
 
-function ActivityCard({ activity = ""}) {
+function ActivityCard({ activity = "", addAccepted}) {
 
     const controls = useAnimation();
     const [swiped, setSwiped] = useState(false);
@@ -9,19 +9,18 @@ function ActivityCard({ activity = ""}) {
     const [direction, setDirection] = useState(0);
 
     const handleDragEnd = (_, info) => {
-        let swipeRight = info.offset.x < 0;
+        let swipeLeft = info.offset.x < 0;
 
         if (Math.abs(info.offset.x) > 100) {
             if (info.offset.x < 0)  {
-                swipeRight = true;
-                console.log("swipe left");
+                swipeLeft = true;
             } else {
-                swipeRight = false;
-                console.log("swipe right");
+                swipeLeft = false;
+                addAccepted(prev => [...prev, activity]);
             }
             
 
-            controls.start({ x : swipeRight ? -300 : 300, rotate : swipeRight ? -15 : 15, transition : {type : "spring", stiffness : 150}})
+            controls.start({ x : swipeLeft ? -300 : 300, rotate : swipeLeft ? -15 : 15, transition : {type : "spring", stiffness : 150}})
             setDirection(0);
             setSwiped(true);
         }  else {

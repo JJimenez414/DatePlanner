@@ -9,6 +9,9 @@ function Room() {
     const [connectionStatus, setConnectionStatus] = useState(getConnectionStatus());
     const navigate = useNavigate();
     const { roomID, setRoomID } = useRoom();
+    const [acceptedActivities, addAcceptedActivities] = useState([
+      "go to"
+    ]);
 
     useEffect(() => {
 
@@ -42,7 +45,12 @@ function Room() {
           <div className='room-card-container center'>
             <div className="activity-card-container">
                   {activities.map((activity, index) => (
-                          <ActivityCard key={index} activity={activity} />
+                          <ActivityCard key={index} activity={activity} addAccepted={addAcceptedActivities}/>
+                  ))}
+            </div>
+            <div className="">
+                  {acceptedActivities.map((activity, index) => (
+                          <p key={index}> {activity} </p>
                   ))}
             </div>
           </div>
