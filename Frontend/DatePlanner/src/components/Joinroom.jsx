@@ -30,10 +30,9 @@ function Joinroom() {
                     className="room-input"
                 />
                 
-                <Link to={"/activitylist"}>
+                <Link to={"/activitylist"} onClick={joinRoom}>
                     <button 
                         className="btn" 
-                        onClick={joinRoom}
                         disabled={!roomID.trim()}
                     > 
                         Join Room 

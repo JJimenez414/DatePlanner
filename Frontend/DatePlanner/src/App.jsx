@@ -3,7 +3,7 @@ import { socket } from './socket.js';
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Landingpage from './components/Landingpage.jsx';
-import Createroom from './context/Createroom.jsx';
+import Createroom from './components/Createroom.jsx';
 import Joinroom from './components/Joinroom.jsx';
 import Room from './components/Room.jsx';
 import Activitylist from './components/Activitylist.jsx';
