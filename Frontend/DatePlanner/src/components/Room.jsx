@@ -42,7 +42,7 @@ function Room() {
       // checks if users has gone through all activities.
       if (isMounted.current) {
         if (activities.length === 0) {
-          socket.emit("test", "list is empty");
+          socket.emit("accepted-activities", acceptedActivities, roomID);
         }
       } else {
         isMounted.current = true;

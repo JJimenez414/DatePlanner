@@ -86,10 +86,25 @@ io.on("connection", (socket) => {
 
     });
 
-    socket.on("test", (data) => {
-        console.log(data);
-    });
 
+    socket.on("accepted-activities", (data, roomID) => {
+        if(!data || !roomID) {
+            socket.emit("error", "Invalid input");
+            return;
+        }
+        const room = activeRooms.get(roomID);
+        console.log(`Data: ${data}`);
+        // find the intersection of the acceptedactivities and the incoming activities.
+        if(room.acceptedActivities.length === 0) {
+            room.acceptedActivities = data; // if there are no accepted activities, set the accepted activities to the incoming ones
+            console.log(`1: Accepted activities: ${room.acceptedActivities}`)
+        } else {
+            // get the intersection of the two sets.
+            const tempSet = new Set(room.acceptedActivities);
+            room.acceptedActivities = data.filter(activity => tempSet.has(activity));
+            console.log(`2: Accepted activities: ${room.acceptedActivities}`)
+        }
+    });
 
 });
 
