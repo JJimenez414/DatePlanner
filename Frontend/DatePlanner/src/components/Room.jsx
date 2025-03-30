@@ -14,7 +14,8 @@ function Room() {
     
     useEffect(() => {
 
-        if (!roomID) {
+      // returns to home if roomID is not set
+      if (!roomID) {
             navigate('/');
             return;
         }

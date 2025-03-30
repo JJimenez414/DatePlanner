@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { useRoom } from '../context/RoomContext';
 
 function Joinroom() {
-    const [roomID, setRoomID] = useState("");
+    const [roomID, setRoomID] = useState(""); // tracks the roomID input
     const { setRoomID: setGlobalRoomID } = useRoom();
 
-    function joinRoom() {
+    function joinRoom() { // joinning room if roomID is not empty and saving it to the global roomID
         if (!roomID.trim()) return;
         
         console.log(`joining ${roomID}`);
@@ -15,7 +15,7 @@ function Joinroom() {
         socket.emit("join-room", roomID);
     }
 
-    function handleInputChange(e) {
+    function handleInputChange(e) {// updating the roomID input
         setRoomID(e.target.value);
     }
 
@@ -30,7 +30,7 @@ function Joinroom() {
                     className="room-input"
                 />
                 
-                <Link to={"/activitylist"} onClick={joinRoom}>
+                <Link to={"/activitylist"} onClick={() => joinRoom}>
                     <button 
                         className="btn" 
                         disabled={!roomID.trim()}

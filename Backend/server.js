@@ -57,8 +57,8 @@ io.on("connection", (socket) => {
             activeRooms.set(roomID, {
                 createdAt: Date.now(),
                 users: new Set(),
-                activities: [],
-                acceptedActivities: []
+                activities: [], // list of activities that users have submitted
+                acceptedActivities: [] // list of activites that all users have in common
             });
         }
         activeRooms.get(roomID).users.add(socket.id);
@@ -78,6 +78,7 @@ io.on("connection", (socket) => {
 
         let room = activeRooms.get(data.roomID);
 
+        // add the activities to the room
         data.activities.forEach(activity => {
             room.activities.push(activity);
         });

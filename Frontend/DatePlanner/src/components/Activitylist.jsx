@@ -6,21 +6,21 @@ import removeCircleIcon from '../assets/remove-circle-stroke-rounded.svg';
 
 const ActivityList = () => {
 
-    const [activity, setActivity] = useState('');
-    const [activities, setActivities] = useState([]);
-    const { roomID } = useRoom();
+    const [activity, setActivity] = useState(''); // tracks the activity input
+    const [activities, setActivities] = useState([]); // tracks the activities user has input
+    const { roomID } = useRoom(); // gets the roomID from the context
 
-    function handleAddActivity(e) {
+    function handleAddActivity(e) { // 
         e.preventDefault();
         setActivities([...activities, activity])
         setActivity('');
     }
 
-    function handleDeleteActivity(index) {
+    function handleDeleteActivity(index) { // deletes an activity from the list 
         setActivities(activities.filter((_, i) => i != index))
     }
 
-    function handleSubmit() {
+    function handleSubmit() {  // submits the activites to the server
         socket.emit('submit-activities', {
             roomID: roomID,
             activities: activities
