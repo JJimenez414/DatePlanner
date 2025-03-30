@@ -57,7 +57,8 @@ io.on("connection", (socket) => {
             activeRooms.set(roomID, {
                 createdAt: Date.now(),
                 users: new Set(),
-                activities: []
+                activities: [],
+                acceptedActivities: []
             });
         }
         activeRooms.get(roomID).users.add(socket.id);
@@ -83,6 +84,10 @@ io.on("connection", (socket) => {
 
         io.to(data.roomID).emit('receive-activities', room.activities);
 
+    });
+
+    socket.on("test", (data) => {
+        console.log(data);
     });
 
 

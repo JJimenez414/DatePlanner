@@ -1,7 +1,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useRef, useState} from "react";
 
-function ActivityCard({ activity = "", addAccepted}) {
+function ActivityCard({ index, activity = "", activities, addAccepted}) {
 
     const controls = useAnimation();
     const [swiped, setSwiped] = useState(false);
@@ -23,6 +23,7 @@ function ActivityCard({ activity = "", addAccepted}) {
             controls.start({ x : swipeLeft ? -300 : 300, rotate : swipeLeft ? -15 : 15, transition : {type : "spring", stiffness : 150}})
             setDirection(0);
             setSwiped(true);
+            activities((prev => prev.filter((_, i) => index !== i))); // removes swipped activity from list.
         }  else {
             controls.start({
                 x : 0, 

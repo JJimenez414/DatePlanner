@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { socket, getConnectionStatus } from '../socket'
 import { useNavigate } from 'react-router-dom';
 import { useRoom } from '../context/RoomContext';
@@ -9,10 +9,9 @@ function Room() {
     const [connectionStatus, setConnectionStatus] = useState(getConnectionStatus());
     const navigate = useNavigate();
     const { roomID, setRoomID } = useRoom();
-    const [acceptedActivities, addAcceptedActivities] = useState([
-      "go to"
-    ]);
-
+    const [acceptedActivities, addAcceptedActivities] = useState([]);
+    const isMounted = useRef(false);
+    
     useEffect(() => {
 
         if (!roomID) {
@@ -39,18 +38,24 @@ function Room() {
         }
     }, [roomID, navigate]);
 
+    useEffect(()=> { 
+      // checks if users has gone through all activities.
+      if (isMounted.current) {
+        if (activities.length === 0) {
+          socket.emit("test", "list is empty");
+        }
+      } else {
+        isMounted.current = true;
+      }
+    }, [activities])
+
     return(
       <>
         <div className='room-container center'>
           <div className='room-card-container center'>
             <div className="activity-card-container">
                   {activities.map((activity, index) => (
-                          <ActivityCard key={index} activity={activity} addAccepted={addAcceptedActivities}/>
-                  ))}
-            </div>
-            <div className="">
-                  {acceptedActivities.map((activity, index) => (
-                          <p key={index}> {activity} </p>
+                          <ActivityCard key={index} index={index}activity={activity} activities={setActivities}addAccepted={addAcceptedActivities}/>
                   ))}
             </div>
           </div>
