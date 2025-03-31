@@ -7,6 +7,7 @@ import Createroom from './components/Createroom.jsx';
 import Joinroom from './components/Joinroom.jsx';
 import Room from './components/Room.jsx';
 import Activitylist from './components/Activitylist.jsx';
+import SubmitionsWait from './components/SubmitionsWait.jsx';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
       <Route path="/joinroom" element={<Joinroom/>}/>  
       <Route path="/room" element={<Room/>}/>
       <Route path="/activitylist" element={<Activitylist/>}/>
+      <Route path="/submitionswait" element={<SubmitionsWait/>}/>
 
     </Routes>
   )

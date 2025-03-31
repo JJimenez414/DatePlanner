@@ -17,7 +17,7 @@ function Createroom() {
     function joinRoom() { // setting the goblal ID to roomID and joining the room
         console.log(`joining ${roomID}`)
         setGlobalRoomID(roomID);
-        socket.emit("join-room", roomID);
+        socket.emit("join-room", roomID, true); // true means that user is the host
     }
 
     return (

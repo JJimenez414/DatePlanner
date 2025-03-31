@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
         console.error(`Socket error for ${socket.id}:`, error);
     });
 
-    socket.on("join-room", (roomID) => {
+    socket.on("join-room", (roomID, isHost) => {
         // Validate room ID
         if (!roomID || typeof roomID !== 'string' || roomID.length < 1) {
             socket.emit("error", "Invalid room ID");
@@ -58,14 +58,19 @@ io.on("connection", (socket) => {
                 createdAt: Date.now(),
                 users: new Set(),
                 activities: [], // list of activities that users have submitted
-                acceptedActivities: [] // list of activites that all users have in common
+                acceptedActivities: [], // list of activites that all users have in common\
+                submitions: new Set(),
+                host: ""
             });
         }
         activeRooms.get(roomID).users.add(socket.id);
+        // save the host id
+        if (isHost) {
+            activeRooms.get(roomID).host = socket.id;
+        }
     });
 
     socket.on("submit-activities", (data, cb) => {
-        console.log(data.activities);
         if (!data.roomID || !data.activities) {
             socket.emit("error", "Invalid input");
             return;
@@ -77,7 +82,7 @@ io.on("connection", (socket) => {
         }
 
         let room = activeRooms.get(data.roomID);
-
+        room.submitions.add(socket.id); // keep track of the unsrs who submitted activities
         // add the activities to the room
         data.activities.forEach(activity => {
             room.activities.push(activity);
@@ -87,6 +92,24 @@ io.on("connection", (socket) => {
 
     });
 
+    socket.on("wait-room", (roomID) => {
+        
+        if(!roomID) {
+            socket.emit("error", "Invalid room ID");
+            return;
+        }
+
+        const room = activeRooms.get(roomID);
+
+        const payload = { // holds the data for the waiter room
+            isHost: room.host === socket.id, // determine if the user is the host
+            numSubmitions : room.submitions.size, // number of submitions
+            numUsers : room.users.size // number of users in the room
+        }
+
+        io.to(roomID).emit('wait-room', payload);
+    })
+
 
     socket.on("accepted-activities", (data, roomID) => {
         if(!data || !roomID) {
@@ -94,7 +117,8 @@ io.on("connection", (socket) => {
             return;
         }
         const room = activeRooms.get(roomID);
-        console.log(`Data: ${data}`);
+        
+
         // find the intersection of the acceptedactivities and the incoming activities.
         if(room.acceptedActivities.length === 0) {
             room.acceptedActivities = data; // if there are no accepted activities, set the accepted activities to the incoming ones

@@ -12,7 +12,7 @@ function Joinroom() {
         
         console.log(`joining ${roomID}`);
         setGlobalRoomID(roomID);
-        socket.emit("join-room", roomID);
+        socket.emit("join-room", roomID, false); // false means that user is not the host
     }
 
     function handleInputChange(e) {// updating the roomID input
@@ -30,7 +30,7 @@ function Joinroom() {
                     className="room-input"
                 />
                 
-                <Link to={"/activitylist"} onClick={() => joinRoom}>
+                <Link to={"/activitylist"} onClick={() => joinRoom()}>
                     <button 
                         className="btn" 
                         disabled={!roomID.trim()}

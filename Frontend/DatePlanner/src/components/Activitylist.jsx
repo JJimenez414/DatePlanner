@@ -54,7 +54,7 @@ const ActivityList = () => {
 
                     <input type="text" value={activity} onChange={(e) => { setActivity(e.target.value);}} placeholder="Add an activity" className="activity-list-input"/>
                     <button type="" onClick={handleAddActivity} className="activity-list-button activity-list-add-button">Add</button>
-                    <Link className="activity-list-link" to={'/room'}>
+                    <Link className="activity-list-link" to={'/submitionswait'}>
                         <button type="submit" onClick={() => handleSubmit()} className='activity-list-button activity-list-submit-button'>Submit</button>
                     </Link>
 
