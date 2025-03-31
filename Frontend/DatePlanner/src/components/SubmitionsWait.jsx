@@ -7,6 +7,7 @@ function SubmitionsWait() {
     const [numSubmitions, setNumSubmitions] = useState(0);
     const [numUsers, setNumUsers] = useState(0);
     const { roomID } = useRoom();
+    const [isDone, setIsDone] = useState(false);
     const [isHost, setIsHost] = useState(false);
 
     useEffect(() => {
@@ -20,7 +21,13 @@ function SubmitionsWait() {
             if(!isHost) { // if we found our host, stop updating host
                 setIsHost(payload.isHost);
             }
+
+            if(payload.numSubmitions === payload.numUsers) {
+                setIsDone(true);
+            }
         })
+
+
 
         return () => {
             socket.off('wait-room');
@@ -31,7 +38,7 @@ function SubmitionsWait() {
     <> 
         <div className='center wait-room-container'>
             <div className=''>
-                <div className='wait-room-info-container-border'></div>
+                <div className= {isDone ? 'wait-room-info-container-border-done' : 'wait-room-info-container-border'}></div>
                 <div className='wait-room-info-container'> 
                         <p> connected: {numSubmitions}</p>
                         <p> users: {numUsers}</p>

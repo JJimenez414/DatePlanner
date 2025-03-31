@@ -209,11 +209,20 @@ html, body {
 
 .wait-room-info-container-border {
     position: relative;
-    border-top: 3px solid red;
+    border-top: 5px solid red;
     height: 500px;
     width: 500px;
     border-radius: 50%;  
     animation: rotate-wait-room 3s linear infinite;
+}
+
+.wait-room-info-container-border-done {
+    position: relative;
+    height: 500px;
+    width: 500px;
+    border-radius: 50%;
+    border: 5px solid green;
+    animation: wait-done 3s linear forwards;
 }
 
 @keyframes rotate-wait-room {
@@ -224,5 +233,4 @@ html, body {
         transform: rotate(360deg);
     }
 }
-
 
