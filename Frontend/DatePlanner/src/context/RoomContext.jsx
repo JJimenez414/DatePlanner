@@ -21,7 +21,7 @@ export function RoomProvider({ children }) {
     );
 }
 
-// prevenst repetative use of useContext
+// prevents repetative use of useContext
 export function useRoom() {
     const context = useContext(RoomContext);
     if (!context) {

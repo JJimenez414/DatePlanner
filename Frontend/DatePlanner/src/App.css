@@ -186,3 +186,38 @@ html, body {
 .activity-list-item:hover .activity-list-delete-icon {
     opacity: 1;
 }
+
+.wait-room-container {
+    height: 100vh;
+}
+
+.wait-room-container p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.wait-room-info-container {
+    height: 500px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wait-room-info-container-border {
+    border-top: 3px solid red;
+    border-radius: 50%;
+    animation: rotate-wait-room 3s linear infinite;
+}
+
+@keyframes rotate-wait-room {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
