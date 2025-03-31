@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { socket }from '../socket';
 import { useRoom } from '../context/RoomContext';
 
@@ -8,7 +8,7 @@ function SubmitionsWait() {
     const [numUsers, setNumUsers] = useState(0);
     const { roomID } = useRoom();
     const [isDone, setIsDone] = useState(false);
-    const [isHost, setIsHost] = useState(false);
+    const [isHost, setIsHost] = useState(true);
 
     useEffect(() => {
 
@@ -20,6 +20,7 @@ function SubmitionsWait() {
 
             if(!isHost) { // if we found our host, stop updating host
                 setIsHost(payload.isHost);
+                console.log("isHost", isHost);
             }
 
             if(payload.numSubmitions === payload.numUsers) {
@@ -29,10 +30,11 @@ function SubmitionsWait() {
 
 
 
+
         return () => {
             socket.off('wait-room');
         }
-    }, [isHost])
+    }, [])
 
   return (
     <> 
@@ -40,9 +42,12 @@ function SubmitionsWait() {
             <div className=''>
                 <div className= {isDone ? 'wait-room-info-container-border-done' : 'wait-room-info-container-border'}></div>
                 <div className='wait-room-info-container'> 
-                        <p> connected: {numSubmitions}</p>
-                        <p> users: {numUsers}</p>
-                        <p> users: {isHost ? "host" : "not host"}</p>
+                        <p> Submitions: {numSubmitions}</p>
+                        <p> Users on room: {numUsers}</p>
+                        <Link to={"/room"}>
+                            <button className="wait-room-btn"> continue </button>
+                        </Link>
+
                 </div>
             </div>
         </div>

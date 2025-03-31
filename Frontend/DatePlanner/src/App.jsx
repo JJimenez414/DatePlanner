@@ -27,9 +27,10 @@ function App() {
       <Route path="/" element={<Landingpage/>}/>
       <Route path="/createroom" element={<Createroom/>}/>  
       <Route path="/joinroom" element={<Joinroom/>}/>  
-      <Route path="/room" element={<Room/>}/>
       <Route path="/activitylist" element={<Activitylist/>}/>
       <Route path="/submitionswait" element={<SubmitionsWait/>}/>
+      <Route path="/room" element={<Room/>}/>
+
 
     </Routes>
   )

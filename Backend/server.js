@@ -70,7 +70,8 @@ io.on("connection", (socket) => {
         }
     });
 
-    socket.on("submit-activities", (data, cb) => {
+    socket.on("submit-activities", (data) => {
+
         if (!data.roomID || !data.activities) {
             socket.emit("error", "Invalid input");
             return;
@@ -87,8 +88,17 @@ io.on("connection", (socket) => {
         data.activities.forEach(activity => {
             room.activities.push(activity);
         });
+    });
 
-        io.to(data.roomID).emit('receive-activities', room.activities);
+    socket.on("request-activities", (roomID, cb) => {
+        if(!roomID) {
+            socket.emit('error', 'Invalid room ID');
+            return;
+        }
+
+        const room = activeRooms.get(roomID);
+        cb(room.activities);
+        console.log(room.activities);
 
     });
 

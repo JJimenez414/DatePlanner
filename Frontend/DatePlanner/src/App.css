@@ -225,6 +225,30 @@ html, body {
     animation: wait-done 3s linear forwards;
 }
 
+.wait-room-btn {
+    all: unset;
+    border: 2px solid rgb(112, 112, 112);
+    border-radius: 10px;
+    width: 100px;
+    height: 35px;
+    margin-top: 30px;
+    text-align: center;
+    vertical-align: middle;
+    color: black;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.wait-room-btn:hover {
+    cursor: pointer;
+    background-color: #009a00;
+    color: white;
+}
+
+.wait-room-btn-hidden {
+    display: none;
+}
+
 @keyframes rotate-wait-room {
     from {
         transform: rotate(0deg);

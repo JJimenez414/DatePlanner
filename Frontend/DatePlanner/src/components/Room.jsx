@@ -13,22 +13,22 @@ function Room() {
     const isMounted = useRef(false);
     
     useEffect(() => {
-
       // returns to home if roomID is not set
       if (!roomID) {
             navigate('/');
             return;
         }
-
         // Update connection status
         const updateStatus = () => setConnectionStatus(getConnectionStatus());
         socket.on('connect', updateStatus);
         socket.on('disconnect', updateStatus);
 
+        function addActivities(activities) {
+          setActivities((prev) => [...prev, ...activities])
+        }
+
         // Receive activities
-        socket.on("receive-activities", (data) => {
-            setActivities(data);
-        });
+        socket.emit("request-activities", roomID, addActivities);
 
         // Cleanup function
         return () => {
@@ -37,7 +37,7 @@ function Room() {
             socket.off('receive-activities');
 
         }
-    }, [roomID, navigate]);
+    }, []);
 
     useEffect(()=> { 
       // checks if users has gone through all activities.
@@ -56,7 +56,7 @@ function Room() {
           <div className='room-card-container center'>
             <div className="activity-card-container">
                   {activities.map((activity, index) => (
-                          <ActivityCard key={index} index={index}activity={activity} activities={setActivities}addAccepted={addAcceptedActivities}/>
+                          <ActivityCard key={index} index={index} activity={activity} activities={setActivities} addAccepted={addAcceptedActivities}/>
                   ))}
             </div>
           </div>
