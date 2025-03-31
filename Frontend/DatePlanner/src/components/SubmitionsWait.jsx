@@ -2,13 +2,15 @@ import React, { useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { socket }from '../socket';
 import { useRoom } from '../context/RoomContext';
+import { useNavigate } from 'react-router-dom';
 
 function SubmitionsWait() {
     const [numSubmitions, setNumSubmitions] = useState(0);
     const [numUsers, setNumUsers] = useState(0);
     const { roomID } = useRoom();
     const [isDone, setIsDone] = useState(false);
-    const [isHost, setIsHost] = useState(true);
+    const [isHost, setIsHost] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -28,13 +30,21 @@ function SubmitionsWait() {
             }
         })
 
+        socket.on("receive-continue", () => {
+            navigate('/room');
+        })
+
 
 
 
         return () => {
             socket.off('wait-room');
         }
-    }, [])
+    }, [isHost])
+
+    function handleContinue() {
+        socket.emit("continue", roomID);
+    }
 
   return (
     <> 
@@ -44,9 +54,8 @@ function SubmitionsWait() {
                 <div className='wait-room-info-container'> 
                         <p> Submitions: {numSubmitions}</p>
                         <p> Users on room: {numUsers}</p>
-                        <Link to={"/room"}>
-                            <button className="wait-room-btn"> continue </button>
-                        </Link>
+                        <p> {isHost ? "host" : "not host"}</p>
+                        <button onClick={handleContinue} className={isHost ? "wait-room-btn" : "wait-room-btn-hidden"}> continue </button>
 
                 </div>
             </div>

@@ -120,6 +120,15 @@ io.on("connection", (socket) => {
         io.to(roomID).emit('wait-room', payload);
     })
 
+    socket.on("continue", (roomID) => {
+        if(!roomID) {
+            socket.emit("error", "Invalid room ID");
+            return;
+        }
+
+        io.to(roomID).emit("receive-continue");
+    })
+
 
     socket.on("accepted-activities", (data, roomID) => {
         if(!data || !roomID) {
