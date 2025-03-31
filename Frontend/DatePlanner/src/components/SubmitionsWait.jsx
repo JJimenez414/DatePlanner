@@ -30,14 +30,14 @@ function SubmitionsWait() {
   return (
     <> 
         <div className='center wait-room-container'>
-            <div className='wait-room-info-container-border'>
+            <div className=''>
+                <div className='wait-room-info-container-border'></div>
                 <div className='wait-room-info-container'> 
-                    <p> connected: {numSubmitions}</p>
-                    <p> users: {numUsers}</p>
-                    <p> users: {isHost ? "host" : "not host"}</p>
+                        <p> connected: {numSubmitions}</p>
+                        <p> users: {numUsers}</p>
+                        <p> users: {isHost ? "host" : "not host"}</p>
                 </div>
             </div>
-            
         </div>
         
     </>

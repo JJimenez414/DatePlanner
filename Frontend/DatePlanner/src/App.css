@@ -197,17 +197,22 @@ html, body {
 }
 
 .wait-room-info-container {
-    height: 500px;
-    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .wait-room-info-container-border {
+    position: relative;
     border-top: 3px solid red;
-    border-radius: 50%;
+    height: 500px;
+    width: 500px;
+    border-radius: 50%;  
     animation: rotate-wait-room 3s linear infinite;
 }
 
