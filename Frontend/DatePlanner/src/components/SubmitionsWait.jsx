@@ -20,14 +20,16 @@ function SubmitionsWait() {
             setNumSubmitions(payload.numSubmitions);
             setNumUsers(payload.numUsers);  
 
-            if(!isHost) { // if we found our host, stop updating host
-                setIsHost(payload.isHost);
-                console.log("isHost", isHost);
-            }
-
             if(payload.numSubmitions === payload.numUsers) { // if the number of submistions is equal to the number of users, then everyone has submited
                 setIsDone(true);
             }
+        })
+
+        socket.on('host', (host) =>  {
+            if(!isHost) { // if we found our host, stop updating host
+                setIsHost(host);
+            }
+            console.log("im host");
         })
 
         socket.on("receive-continue", () => { // navigate to the room page
@@ -39,8 +41,10 @@ function SubmitionsWait() {
 
         return () => {
             socket.off('wait-room');
+            socket.off('receive-continue');
+            socket.off('host');
         }
-    }, [isHost])
+    }, [])
 
     function handleContinue() { // send a continue signal to the server, made only by the host.
         socket.emit("continue", roomID);

@@ -99,8 +99,6 @@ io.on("connection", (socket) => {
 
         const room = activeRooms.get(roomID);
         cb(room.activities);
-        console.log(room.activities);
-
     });
 
     socket.on("wait-room", (roomID) => {
@@ -113,12 +111,16 @@ io.on("connection", (socket) => {
         const room = activeRooms.get(roomID);
 
         const payload = { // holds the data for the waiter room
-            isHost: room.host === socket.id, // determine if the user is the host
             numSubmitions : room.submitions.size, // number of submitions
             numUsers : room.users.size // number of users in the room
         }
 
-        io.to(roomID).emit('wait-room', payload);
+        if (room.host === socket.id) {
+            io.to(socket.id).emit('host', true)
+            io.to(roomID).emit('wait-room', payload);
+        } else {
+            io.to(roomID).emit('wait-room', payload);
+        }
     })
 
     socket.on("continue", (roomID) => {
@@ -143,22 +145,17 @@ io.on("connection", (socket) => {
         // find the intersection of the acceptedactivities and the incoming activities.
         if(room.acceptedActivities.length === 0) {
             room.acceptedActivities = data; // if there are no accepted activities, set the accepted activities to the incoming ones
-            // console.log(`1: Accepted activities: ${room.acceptedActivities}`)
         } else {
             // get the intersection of the two sets.
             const tempSet = new Set(room.acceptedActivities);
             room.acceptedActivities = data.filter(activity => tempSet.has(activity));
-            // console.log(`2: Accepted activities: ${room.acceptedActivities}`)
         }
 
         const payload = {
-            userDone : room.done.size,
-            numUsers : room.users.size,
             acceptedActivities : room.acceptedActivities
         }
 
-        if (room.done.size === room.users.size) {
-            console.log("all have submitted");
+        if (room.done.size === room.users.size) { // if all users done, send emit the data.
             io.to(roomID).emit("receive-done", payload);
         }
     });

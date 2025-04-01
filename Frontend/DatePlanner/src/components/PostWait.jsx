@@ -4,8 +4,6 @@ import { socket } from '../socket';
 
 function PostWait() {
 
-    // const [ usersDone, setUsersDone] = useState(0);
-    // const [ numUsers, setNumUsers] = useState(0);
     const [ activities, setActivities ] = useState([]);
 
     useEffect(()=> {
@@ -18,17 +16,17 @@ function PostWait() {
             socket.off("receive-done");
         };
 
-    }, [activitiess])
-
-    function handleDone() {
-        console.log('show matched activitiese');
-    }
-
-    console.log(activities);
+    }, [activities])
 
     return (
         <>
             <p> hello world </p>
+
+            <div>
+                {activities.map((activity) => {
+                    <p> {activity} </p>
+                })}
+            </div>
         </>
     )   
 }
