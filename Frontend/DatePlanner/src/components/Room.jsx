@@ -44,11 +44,12 @@ function Room() {
       if (isMounted.current) {
         if (activities.length === 0) {
           socket.emit("accepted-activities", acceptedActivities, roomID);
+          navigate("/postwait");
         }
       } else {
         isMounted.current = true;
       }
-    }, [activities])
+    }, [activities]) // we aremove a specific card on the activity card page.
 
     return(
       <>

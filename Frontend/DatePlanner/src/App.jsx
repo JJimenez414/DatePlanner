@@ -8,6 +8,7 @@ import Joinroom from './components/Joinroom.jsx';
 import Room from './components/Room.jsx';
 import Activitylist from './components/Activitylist.jsx';
 import SubmitionsWait from './components/SubmitionsWait.jsx';
+import PostWait from './components/PostWait.jsx';
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
       <Route path="/activitylist" element={<Activitylist/>}/>
       <Route path="/submitionswait" element={<SubmitionsWait/>}/>
       <Route path="/room" element={<Room/>}/>
-
+      <Route path='/postwait' element={<PostWait/>}/>
 
     </Routes>
   )

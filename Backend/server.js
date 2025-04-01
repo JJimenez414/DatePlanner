@@ -60,6 +60,7 @@ io.on("connection", (socket) => {
                 activities: [], // list of activities that users have submitted
                 acceptedActivities: [], // list of activites that all users have in common\
                 submitions: new Set(),
+                done: new Set(), // stores the users who are done with their activities
                 host: ""
             });
         }
@@ -136,18 +137,26 @@ io.on("connection", (socket) => {
             return;
         }
         const room = activeRooms.get(roomID);
-        
+
+        room.done.add(socket.id); // track users who are donee with thier activities
+
+        const payload = {
+            userDone : room.done.size,
+            numUsers : room.users.size
+        }
 
         // find the intersection of the acceptedactivities and the incoming activities.
         if(room.acceptedActivities.length === 0) {
             room.acceptedActivities = data; // if there are no accepted activities, set the accepted activities to the incoming ones
-            console.log(`1: Accepted activities: ${room.acceptedActivities}`)
+            // console.log(`1: Accepted activities: ${room.acceptedActivities}`)
         } else {
             // get the intersection of the two sets.
             const tempSet = new Set(room.acceptedActivities);
             room.acceptedActivities = data.filter(activity => tempSet.has(activity));
-            console.log(`2: Accepted activities: ${room.acceptedActivities}`)
+            // console.log(`2: Accepted activities: ${room.acceptedActivities}`)
         }
+
+        io.to(roomID).emit("receive-done", payload);
     });
 
 });
