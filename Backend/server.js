@@ -140,11 +140,6 @@ io.on("connection", (socket) => {
 
         room.done.add(socket.id); // track users who are donee with thier activities
 
-        const payload = {
-            userDone : room.done.size,
-            numUsers : room.users.size
-        }
-
         // find the intersection of the acceptedactivities and the incoming activities.
         if(room.acceptedActivities.length === 0) {
             room.acceptedActivities = data; // if there are no accepted activities, set the accepted activities to the incoming ones
@@ -156,7 +151,16 @@ io.on("connection", (socket) => {
             // console.log(`2: Accepted activities: ${room.acceptedActivities}`)
         }
 
-        io.to(roomID).emit("receive-done", payload);
+        const payload = {
+            userDone : room.done.size,
+            numUsers : room.users.size,
+            acceptedActivities : room.acceptedActivities
+        }
+
+        if (room.done.size === room.users.size) {
+            console.log("all have submitted");
+            io.to(roomID).emit("receive-done", payload);
+        }
     });
 
 });
