@@ -156,6 +156,7 @@ io.on("connection", (socket) => {
         }
 
         if (room.done.size === room.users.size) { // if all users done, send emit the data.
+            console.log("done");
             io.to(roomID).emit("receive-done", payload);
         }
     });

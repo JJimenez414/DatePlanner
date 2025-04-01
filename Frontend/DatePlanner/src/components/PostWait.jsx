@@ -10,6 +10,7 @@ function PostWait() {
 
         socket.on("receive-done", (payload) => {
             setActivities(payload.acceptedActivities);
+            console.log(`activities: ${payload.acceptedActivities}`)
         }) 
 
         return () => {
@@ -18,15 +19,16 @@ function PostWait() {
 
     }, [activities])
 
+
     return (
         <>
-            <p> hello world </p>
+            <p> matched activities </p>
 
-            <div>
-                {activities.map((activity) => {
-                    <p> {activity} </p>
-                })}
-            </div>
+            <ul>
+                {activities.map((activity, index) => (
+                    <li key={index}> {activity} </li>
+                ))}
+            </ul>
         </>
     )   
 }
