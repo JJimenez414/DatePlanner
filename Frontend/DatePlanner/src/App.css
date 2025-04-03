@@ -1,6 +1,7 @@
 html, body {
     margin: 0px;
     padding: 0px;
+    /* font-family: link-sans, Arial Black, sans-serif; */
 }
 
 .center {
@@ -23,7 +24,32 @@ html, body {
 }
 
 .create-room-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     height: 100vh;
+}
+
+.create-room-id {
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+    border-radius: 10px;
+}
+
+.copy-btn {
+    all: unset;
+    width: 70px;
+    text-align: center;
+    border-radius: 10px;
+    transition: all 0.3 ease;   
+}
+
+
+.copy-btn:hover {
+    background-color: rgb(239, 240, 236);   
+    cursor: pointer;
 }
 
 .room-container {

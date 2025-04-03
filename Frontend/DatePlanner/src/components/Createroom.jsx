@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid';
 import { socket } from '../socket.js';
 import { useRoom } from '../context/RoomContext.jsx';
+import Copy from '../components/Copy.jsx'
 
 function Createroom() {
     const [roomID, setroomID] = useState(uuidv4()); // set unique id for room
@@ -20,15 +21,23 @@ function Createroom() {
         socket.emit("join-room", roomID, true); // true means that user is the host
     }
 
+
     return (
         <>
             <div className='create-room-container center'> 
-                <p> {roomID} </p>
+
+                <div className='create-room-id'> 
+                    <p> {roomID} </p>
+
+                    <Copy text={roomID}/> 
+                </div>
+
                 <button className="btn" onClick={() => newRoom()}> New Room </button> 
 
                 <Link to={"/activitylist"} onClick={() => joinRoom()}> 
                     <button className="btn"> Join Room </button> 
                 </Link>
+
             </div>
         </>
     )
