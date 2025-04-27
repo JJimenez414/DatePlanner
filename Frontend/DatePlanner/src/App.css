@@ -1,7 +1,6 @@
 html, body {
     margin: 0px;
     padding: 0px;
-    /* font-family: link-sans, Arial Black, sans-serif; */
 }
 
 .center {
@@ -16,11 +15,19 @@ html, body {
 }
 
 .btn {
-    margin: 20px;
-
+    background-color: #007bff;
+    color: white;
+    height: 45px;
+    width: 120px;
+    border-radius: 10px;
+    border: none;
+    margin: 10px;
+    transition: transform 0.3s ease-in-out;
 }
+
 .btn:hover {
     cursor: pointer;
+    transform: scale(1.05);
 }
 
 .create-room-container {
@@ -34,8 +41,10 @@ html, body {
 .create-room-id {
     display: flex;
     justify-content: space-around;
-    width: 400px;
+    width: 500px;
     border-radius: 10px;
+    font-size: 20px;
+    background-color: rgb(239, 240, 236);
 }
 
 .copy-btn {
@@ -43,17 +52,28 @@ html, body {
     width: 70px;
     text-align: center;
     border-radius: 10px;
-    transition: all 0.3 ease;   
+    transition: all 0.3 ease;  
+    font-size: 15px; 
 }
 
 
-.copy-btn:hover {
-    background-color: rgb(239, 240, 236);   
+.copy-btn:hover {  
     cursor: pointer;
 }
 
 .room-container {
     height: 100vh;
+} 
+
+.room-input {
+    height: 25px;
+    width: 290px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(239, 240, 236);  
+    padding: 10px;
+    text-align: center;
 }
 
 .join-room-container {
@@ -283,4 +303,39 @@ html, body {
         transform: rotate(360deg);
     }
 }
+
+.matchedCardsContainer {
+    height: 150px;
+    width: 300px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.matchedCardsContainer:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.postWaitConatainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.postWaitCardContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 68%;
+}
+
+.postWaitTittle {
+    font-size: 30px;
+}
+
 

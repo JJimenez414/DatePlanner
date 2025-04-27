@@ -32,11 +32,13 @@ function Createroom() {
                     <Copy text={roomID}/> 
                 </div>
 
-                <button className="btn" onClick={() => newRoom()}> New Room </button> 
+                <div>
+                    <button className="btn" onClick={() => newRoom()}> New Room </button> 
 
-                <Link to={"/activitylist"} onClick={() => joinRoom()}> 
-                    <button className="btn"> Join Room </button> 
-                </Link>
+                    <Link to={"/activitylist"} onClick={() => joinRoom()}> 
+                        <button className="btn"> Join Room </button> 
+                    </Link>
+                </div>
 
             </div>
         </>

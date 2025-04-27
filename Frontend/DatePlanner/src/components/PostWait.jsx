@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { socket } from '../socket';
+import MatchedCards from './MatchedCards';
 
 
 function PostWait() {
@@ -22,13 +23,14 @@ function PostWait() {
 
     return (
         <>
-            <p> matched activities </p>
-
-            <ul>
-                {activities.map((activity, index) => (
-                    <li key={index}> {activity} </li>
-                ))}
-            </ul>
+            <div className='postWaitConatainer'>
+                <p className="postWaitTittle"> Matched Activities </p>
+                <div className='postWaitCardContainer'>
+                    {activities.map((activity, index) => (
+                        <MatchedCards activity={activity}/>
+                    ))}
+                </div>
+            </div>
         </>
     )   
 }
